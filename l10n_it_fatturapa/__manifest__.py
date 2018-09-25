@@ -5,7 +5,7 @@
 
 {
     'name': 'Italian Localization - FatturaPA',
-    'version': '10.0.1.1.0',
+    'version': '10.0.2.0.0',
     'category': 'Localization/Italy',
     'summary': 'Electronic invoices',
     'author': 'Davide Corio, Agile Business Group, Innoviu, '
@@ -13,7 +13,7 @@
     'website': 'https://odoo-community.org',
     'license': 'LGPL-3',
     "depends": [
-        'account',
+        'l10n_it_account',
         'l10n_it_fiscalcode',
         'document',
         'l10n_it_ipa',
@@ -22,6 +22,8 @@
         'l10n_it_account_tax_kind',
         'l10n_it_esigibilita_iva',
         'l10n_it_fiscal_payment_term',
+        'l10n_it_split_payment',
+        'l10n_it_fiscal_document_type',
         ],
     "data": [
         'data/fatturapa_data.xml',
