@@ -20,7 +20,7 @@ class WizardExportFatturapa(models.TransientModel):
             lambda x: x.withholding_tax_id.wt_types == 'ritenuta')
         if len(ritenuta_lines) > 1:
             raise UserError(
-                _("More than 1 line of DatiRitenuta in invoice!"))
+                _("More than one Ritenuta tax in invoice!"))
         for wt_line in ritenuta_lines:
             if not wt_line.withholding_tax_id.causale_pagamento_id.code:
                 raise UserError(_('Missing causale pagamento for wt %s!')
@@ -41,7 +41,12 @@ class WizardExportFatturapa(models.TransientModel):
             invoice, body)
         enasarco_lines = invoice.withholding_tax_line_ids.filtered(
             lambda x: x.withholding_tax_id.wt_types == 'enasarco')
+        if len(enasarco_lines) > 1:
+            raise UserError(
+                _("More than one Enasarco tax in invoice!"))
         for wt_line in enasarco_lines:
+            # tmp put values in the first line
+            # todo split values for lines with withholding type enasarco
             body.DatiBeniServizi.DettaglioLinee[0].AltriDatiGestionali.append(
                 AltriDatiGestionaliType(
                     TipoDato="CASSA-PREV",
