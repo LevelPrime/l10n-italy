@@ -21,6 +21,8 @@ addon | version | summary
 [l10n_it_abicab](l10n_it_abicab/) | 10.0.1.0.0 | Base Bank ABI/CAB codes
 [l10n_it_account](l10n_it_account/) | 10.0.1.2.3 | Italian Localization - Account
 [l10n_it_account_stamp](l10n_it_account_stamp/) | 10.0.1.0.1 | Tax stamp automatic management
+[l10n_it_account_stamp_ddt](l10n_it_account_stamp_ddt/) | 10.0.1.0.0 | Modulo ponte tra imposta di bollo e DDT
+[l10n_it_account_stamp_sale](l10n_it_account_stamp_sale/) | 10.0.1.0.1 | Modulo ponte tra imposta di bollo e vendite
 [l10n_it_account_tax_kind](l10n_it_account_tax_kind/) | 10.0.1.0.0 | Italian Localisation - Natura delle aliquote IVA
 [l10n_it_ateco](l10n_it_ateco/) | 10.0.1.0.0 | Ateco codes
 [l10n_it_base_location_geonames_import](l10n_it_base_location_geonames_import/) | 10.0.1.0.0 | Import base_location entries (provinces) from Geonames
@@ -31,8 +33,8 @@ addon | version | summary
 [l10n_it_corrispettivi_sale](l10n_it_corrispettivi_sale/) | 10.0.1.0.1 | Modulo per integrare i corrispettivi in odoo con gli ordini di vendita.
 [l10n_it_ddt](l10n_it_ddt/) | 10.0.1.7.1 | Documento di Trasporto
 [l10n_it_esigibilita_iva](l10n_it_esigibilita_iva/) | 10.0.1.0.0 | Esigibilità IVA
-[l10n_it_fatturapa](l10n_it_fatturapa/) | 10.0.2.3.3 | Fatture elettroniche
-[l10n_it_fatturapa_in](l10n_it_fatturapa_in/) | 10.0.1.4.3 | Ricezione fatture elettroniche
+[l10n_it_fatturapa](l10n_it_fatturapa/) | 10.0.2.3.5 | Fatture elettroniche
+[l10n_it_fatturapa_in](l10n_it_fatturapa_in/) | 10.0.1.4.4 | Ricezione fatture elettroniche
 [l10n_it_fatturapa_in_purchase](l10n_it_fatturapa_in_purchase/) | 10.0.1.0.0 | Modulo ponte tra ricezione fatture elettroniche e acquisti
 [l10n_it_fatturapa_out](l10n_it_fatturapa_out/) | 10.0.1.3.2 | Emissione fatture elettroniche
 [l10n_it_fatturapa_out_ddt](l10n_it_fatturapa_out_ddt/) | 10.0.1.0.2 | Modulo ponte tra emissione fatture elettroniche e DDT
