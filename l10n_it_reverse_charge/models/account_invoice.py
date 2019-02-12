@@ -44,7 +44,7 @@ class AccountInvoice(models.Model):
             'quantity': line.quantity,
             }
 
-    def rc_inv_vals(self, partner, account, rc_type, lines):
+    def rc_inv_vals(self, partner, account, rc_type, lines, currency):
         if self.type == 'in_invoice':
             type = 'out_invoice'
         else:
@@ -61,7 +61,8 @@ class AccountInvoice(models.Model):
             'origin': self.number,
             'rc_purchase_invoice_id': self.id,
             'name': rc_type.self_invoice_text,
-            'fiscal_position_id': None
+            'fiscal_position_id': None,
+            'currency_id': currency.id,
             }
 
     def get_inv_line_to_reconcile(self):
@@ -100,6 +101,13 @@ class AccountInvoice(models.Model):
                 product=rc_line.product_id,
                 partner=rc_line.partner_id)
             amount_rc_tax += res['total_included'] - res['total_excluded']
+
+        # convert the amount to main company currency
+        invoice_currency = self.currency_id
+        main_currency = self.company_currency_id
+        if invoice_currency != main_currency:
+            amount_rc_tax = invoice_currency.compute(
+                amount_rc_tax, main_currency)
 
         return amount_rc_tax
 
@@ -281,6 +289,7 @@ class AccountInvoice(models.Model):
             rc_partner = rc_type.partner_id
         else:
             rc_partner = self.partner_id
+        rc_currency = self.currency_id
         rc_account = rc_partner.property_account_receivable_id
 
         rc_invoice_lines = []
@@ -307,7 +316,7 @@ class AccountInvoice(models.Model):
                 rc_invoice_lines.append([0, False, rc_invoice_line])
         if rc_invoice_lines:
             inv_vals = self.rc_inv_vals(
-                rc_partner, rc_account, rc_type, rc_invoice_lines)
+                rc_partner, rc_account, rc_type, rc_invoice_lines, rc_currency)
 
             # create or write the self invoice
             if self.rc_self_invoice_id:
