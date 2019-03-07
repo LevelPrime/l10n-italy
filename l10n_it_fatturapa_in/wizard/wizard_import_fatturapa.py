@@ -289,7 +289,7 @@ class WizardImportFatturapa(models.TransientModel):
                     ('amount', '=', 0.0)
                 ], order='sequence', limit=1)
             if not account_taxes:
-                raise UserError(
+                self.log_inconsistency(
                     _('No tax with percentage '
                       '%s and nature %s found. Please configure this tax.')
                     % (line.AliquotaIVA, line.Natura))
@@ -301,8 +301,7 @@ class WizardImportFatturapa(models.TransientModel):
                     ('price_include', '=', False),
                     # partially deductible VAT must be set by user
                     ('children_tax_ids', '=', False),
-                ]
-            )
+                ], order='sequence')
             if not account_taxes:
                 self.log_inconsistency(
                     _(
