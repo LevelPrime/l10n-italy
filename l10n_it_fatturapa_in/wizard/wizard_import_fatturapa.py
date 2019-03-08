@@ -278,17 +278,12 @@ class WizardImportFatturapa(models.TransientModel):
                 [
                     ('type_tax_use', '=', 'purchase'),
                     ('kind_id.code', '=', line.Natura),
-                    ('amount', '=', 0.0),
-                ])
+                    ('amount', '=', 0.0)
+                ], order='sequence', limit=1)
             if not account_taxes:
-                raise UserError(
+                self.log_inconsistency(
                     _('No tax with percentage '
                       '%s and nature %s found. Please configure this tax.')
-                    % (line.AliquotaIVA, line.Natura))
-            if len(account_taxes) > 1:
-                raise UserError(
-                    _('Too many taxes with percentage '
-                      '%s and nature %s found.')
                     % (line.AliquotaIVA, line.Natura))
         else:
             account_taxes = account_tax_model.search(
@@ -298,8 +293,7 @@ class WizardImportFatturapa(models.TransientModel):
                     ('price_include', '=', False),
                     # partially deductible VAT must be set by user
                     ('children_tax_ids', '=', False),
-                ]
-            )
+                ], order='sequence')
             if not account_taxes:
                 self.log_inconsistency(
                     _(
@@ -312,9 +306,9 @@ class WizardImportFatturapa(models.TransientModel):
             if len(account_taxes) > 1:
                 # just logging because this is an usual case: see split payment
                 _logger.warning(_(
-                    "Line '%s': Too many taxes with percentage equals "
+                    "Too many taxes with percentage equals "
                     "to '%s'.\nFix it if required"
-                ) % (line.Descrizione, line.AliquotaIVA))
+                ) % line.AliquotaIVA)
                 # if there are multiple taxes with same percentage
                 # and there is a default tax with this percentage,
                 # set taxes list equal to supplier_taxes_id, loaded before
