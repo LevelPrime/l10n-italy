@@ -941,7 +941,7 @@ class WizardImportFatturapa(models.TransientModel):
                         raise UserError(_(
                             "Welfare Fund data %s has withholding tax but no "
                             "withholding tax was found in the system."
-                            % walfareLine.TipoCassa))
+                            ) % walfareLine.TipoCassa)
                     line_vals['invoice_line_tax_wt_ids'] = [
                         (6, 0, [wt_found.id])]
                 if self.env.user.company_id.cassa_previdenziale_product_id:
