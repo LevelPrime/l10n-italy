@@ -5,7 +5,8 @@
 # Copyright 2018-2019 Lorenzo Battistini <https://github.com/eLBati>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
-    'name': 'Italian Localization - FatturaPA - Emission - DatiRitenuta',
+    'name': 'Italian Localization - Fattura elettronica - Integrazione '
+            'ritenuta',
     'summary': 'Modulo ponte tra emissione fatture elettroniche e ritenute.',
     'version': '10.0.1.0.0',
     'development_status': 'Beta',

@@ -20,17 +20,19 @@ class WizardExportFatturapa(models.TransientModel):
             lambda x: x.withholding_tax_id.wt_types == 'ritenuta')
         if len(ritenuta_lines) > 1:
             raise UserError(
-                _("More than one Ritenuta tax in invoice!"))
+                _("More than one withholding tax in invoice!"))
         for wt_line in ritenuta_lines:
             if not wt_line.withholding_tax_id.causale_pagamento_id.code:
-                raise UserError(_('Missing causale pagamento for wt %s!')
+                raise UserError(_('Missing causale pagamento for '
+                                  'withholding tax %s!')
                                 % wt_line.withholding_tax_id.name)
             body.DatiGenerali.DatiGeneraliDocumento.DatiRitenuta\
                 = DatiRitenutaType(
                     TipoRitenuta="RT02" if invoice.partner_id.is_company
                     else "RT01",  # RT02 persona giuridica
                     ImportoRitenuta='%.2f' % wt_line.tax,
-                    AliquotaRitenuta='%.2f' % (wt_line.tax / wt_line.base),
+                    AliquotaRitenuta='%.2f' % (
+                        wt_line.tax / wt_line.base * 100),
                     CausalePagamento=wt_line.withholding_tax_id.
                     causale_pagamento_id.code
                 )

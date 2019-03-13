@@ -11,6 +11,6 @@ class WithholdingTax(models.Model):
     welfare_fund_type_id = fields.Many2one(
         'welfare.fund.type', 'Welfare Fund Type')
     wt_types = fields.Selection([
-        ('enasarco', 'Enasarco'),
-        ('ritenuta', 'Ritenuta'),
-        ], 'Withholding tax type', required=True)
+        ('enasarco', 'Enasarco tax'),
+        ('ritenuta', 'Withholding tax'),
+        ], 'Withholding tax type', required=True, default='ritenuta')
