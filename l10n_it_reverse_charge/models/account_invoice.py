@@ -88,6 +88,7 @@ class AccountInvoice(models.Model):
             'name': rc_type.self_invoice_text,
             'fiscal_position_id': None,
             'currency_id': currency.id,
+            'payment_term_id': False,
             }
 
     def get_inv_line_to_reconcile(self):
