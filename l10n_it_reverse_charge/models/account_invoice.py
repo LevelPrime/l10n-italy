@@ -114,19 +114,20 @@ class AccountInvoice(models.Model):
             'date': self.date,
             }
 
-    def compute_rc_amount(self):
-        amount_rc_tax = 0.0
+    def compute_rc_amount_tax(self):
+        rc_amount_tax = 0.0
+        round_curr = self.currency_id.round
         rc_lines = self.invoice_line_ids.filtered(lambda l: l.rc)
         for rc_line in rc_lines:
             price_unit = \
                 rc_line.price_unit * (1 - (rc_line.discount or 0.0) / 100.0)
-            res = rc_line.invoice_line_tax_ids.compute_all(
+            taxes = rc_line.invoice_line_tax_ids.compute_all(
                 price_unit,
-                rc_line.currency_id,
+                self.currency_id,
                 rc_line.quantity,
                 product=rc_line.product_id,
-                partner=rc_line.partner_id)
-            amount_rc_tax += res['total_included'] - res['total_excluded']
+                partner=rc_line.partner_id)['taxes']
+            rc_amount_tax += sum([tax['amount'] for tax in taxes])
 
         #convert the amount to main company currency
         invoice_currency = self.currency_id
@@ -138,7 +139,7 @@ class AccountInvoice(models.Model):
 
     def rc_credit_line_vals(self, journal):
         credit = debit = 0.0
-        amount_rc_tax = self.compute_rc_amount()
+        amount_rc_tax = self.compute_rc_amount_tax()
 
         if self.type == 'in_invoice':
             credit = amount_rc_tax
@@ -155,7 +156,7 @@ class AccountInvoice(models.Model):
 
     def rc_debit_line_vals(self, amount=None):
         credit = debit = 0.0
-        amount_rc_tax = self.compute_rc_amount()
+        amount_rc_tax = self.compute_rc_amount_tax()
 
         if self.type == 'in_invoice':
             if amount:
