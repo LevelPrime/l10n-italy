@@ -29,7 +29,7 @@ addon | version | summary
 [l10n_it_causali_pagamento](l10n_it_causali_pagamento/) | 10.0.1.0.0 | Aggiunge la tabella delle causali di pagamento da usare ad esempio nelle ritenute d'acconto
 [l10n_it_central_journal](l10n_it_central_journal/) | 10.0.0.0.1 | Italian Localization - Account central journal
 [l10n_it_codici_carica](l10n_it_codici_carica/) | 10.0.1.0.0 | Aggiunge la tabella dei codici carica da usare nei dichiarativi fiscali italiani
-[l10n_it_corrispettivi](l10n_it_corrispettivi/) | 10.0.1.2.3 | Italian Localization - Corrispettivi
+[l10n_it_corrispettivi](l10n_it_corrispettivi/) | 10.0.1.2.4 | Italian Localization - Corrispettivi
 [l10n_it_corrispettivi_sale](l10n_it_corrispettivi_sale/) | 10.0.1.0.1 | Modulo per integrare i corrispettivi in odoo con gli ordini di vendita.
 [l10n_it_ddt](l10n_it_ddt/) | 10.0.1.7.2 | Documento di Trasporto
 [l10n_it_esigibilita_iva](l10n_it_esigibilita_iva/) | 10.0.1.0.0 | Esigibilità IVA
@@ -51,7 +51,7 @@ addon | version | summary
 [l10n_it_location_nuts](l10n_it_location_nuts/) | 10.0.1.0.0 | NUTS specific options for Italy
 [l10n_it_pec](l10n_it_pec/) | 10.0.1.0.0 | Pec Mail
 [l10n_it_rea](l10n_it_rea/) | 10.0.1.1.1 | Gestisce i campi del Repertorio Economico Amministrativo
-[l10n_it_reverse_charge](l10n_it_reverse_charge/) | 10.0.1.1.6 | Reverse Charge for Italy
+[l10n_it_reverse_charge](l10n_it_reverse_charge/) | 10.0.1.1.7 | Reverse Charge for Italy
 [l10n_it_riba_commission](l10n_it_riba_commission/) | 10.0.1.0.1 | Ricevute bancarie & commissioni
 [l10n_it_ricevute_bancarie](l10n_it_ricevute_bancarie/) | 10.0.1.2.0 | Ricevute Bancarie
 [l10n_it_sdi_channel](l10n_it_sdi_channel/) | 10.0.1.2.0 | Aggiunge il canale di invio/ricezione dei file XML attraverso lo SdI

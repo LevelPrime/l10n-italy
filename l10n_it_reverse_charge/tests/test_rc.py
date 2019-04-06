@@ -15,6 +15,7 @@ class TestReverseCharge(TransactionCase):
         self.invoice_model = self.env['account.invoice']
         self.invoice_line_model = self.env['account.invoice.line']
         self.partner_model = self.env['res.partner']
+
         self._create_account()
         self._create_taxes()
         self._create_journals()
@@ -23,6 +24,12 @@ class TestReverseCharge(TransactionCase):
         self._create_fiscal_position()
 
         self.sample_product = self.env['product.product'].search([], limit=1)
+        self.supplier_extraEU = self.partner_model.create({
+            'name': 'Extra EU supplier',
+            'customer': False,
+            'supplier': True,
+            'property_account_position_id': self.fiscal_position_extra.id
+        })
         self.supplier_intraEU = self.partner_model.create({
             'name': 'Intra EU supplier',
             'customer': False,
@@ -350,15 +357,8 @@ class TestReverseCharge(TransactionCase):
         self.assertEqual(info['amount'], invoice.amount_tax)
 
     def test_extra_EU(self):
-        supplier_extraEU = self.partner_model.create({
-            'name': 'Extra EU supplier',
-            'customer': False,
-            'supplier': True,
-            'property_account_position_id': self.fiscal_position_extra.id
-        })
-
         invoice = self.invoice_model.create({
-            'partner_id': supplier_extraEU.id,
+            'partner_id': self.supplier_extraEU.id,
             'account_id': self.invoice_account,
             'type': 'in_invoice',
         })
@@ -412,15 +412,8 @@ class TestReverseCharge(TransactionCase):
     def test_new_refund_flag(self):
         """Check that the lines of a new refund have the RC flag properly set.
         """
-        supplier_extraEU = self.partner_model.create({
-            'name': 'Extra EU supplier',
-            'customer': False,
-            'supplier': True,
-            'property_account_position_id': self.fiscal_position_extra.id
-        })
-
         invoice = self.invoice_model.create({
-            'partner_id': supplier_extraEU.id,
+            'partner_id': self.supplier_extraEU.id,
             'account_id': self.invoice_account,
             'type': 'in_refund',
         })
