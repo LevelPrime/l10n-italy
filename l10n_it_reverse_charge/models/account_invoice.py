@@ -86,8 +86,8 @@ class AccountInvoice(models.Model):
             'origin': self.number,
             'rc_purchase_invoice_id': self.id,
             'name': rc_type.self_invoice_text,
-            'fiscal_position_id': None,
             'currency_id': currency.id,
+            'fiscal_position_id': False,
             'payment_term_id': False,
             }
 
@@ -129,20 +129,14 @@ class AccountInvoice(models.Model):
                 partner=rc_line.partner_id)['taxes']
             rc_amount_tax += sum([tax['amount'] for tax in taxes])
 
-        #convert the amount to main company currency
-        invoice_currency = self.currency_id
-        main_currency = self.company_currency_id
-        if invoice_currency != main_currency:
-            amount_rc_tax = invoice_currency.compute(amount_rc_tax, main_currency)
-
         # convert the amount to main company currency
         invoice_currency = self.currency_id
         main_currency = self.company_currency_id
         if invoice_currency != main_currency:
-            amount_rc_tax = invoice_currency.compute(
-                amount_rc_tax, main_currency)
+            rc_amount_tax = invoice_currency.compute(
+                rc_amount_tax, main_currency)
 
-        return amount_rc_tax
+        return rc_amount_tax
 
     def rc_credit_line_vals(self, journal):
         credit = debit = 0.0
