@@ -135,6 +135,13 @@ class AccountInvoice(models.Model):
         if invoice_currency != main_currency:
             amount_rc_tax = invoice_currency.compute(amount_rc_tax, main_currency)
 
+        # convert the amount to main company currency
+        invoice_currency = self.currency_id
+        main_currency = self.company_currency_id
+        if invoice_currency != main_currency:
+            amount_rc_tax = invoice_currency.compute(
+                amount_rc_tax, main_currency)
+
         return amount_rc_tax
 
     def rc_credit_line_vals(self, journal):
