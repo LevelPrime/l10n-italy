@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-08 09:34+0000\n"
-"PO-Revision-Date: 2018-12-16 23:58+0000\n"
+"PO-Revision-Date: 2019-04-03 11:15+0000\n"
 "Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3\n"
+"X-Generator: Weblate 3.5.1\n"
 
 #. module: l10n_it_fatturapa
 #: model:account.tax,description:l10n_it_fatturapa.tax_00_e15
@@ -127,7 +127,7 @@ msgid "Art. 73"
 msgstr "Art. 73"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:63
+#: code:addons/l10n_it_fatturapa/models/partner.py:65
 #, python-format
 msgid ""
 "As a Public Administration, partner %s IPA Code must be 6 characters long."
@@ -136,7 +136,7 @@ msgstr ""
 "6 caratteri."
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:73
+#: code:addons/l10n_it_fatturapa/models/partner.py:75
 #, python-format
 msgid "As a natural person, partner %s must have Name and Surname."
 msgstr "Il partner %s, come persona fisica, deve avere nome e cognome."
@@ -277,19 +277,19 @@ msgid "Created on"
 msgstr "Creato il"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:103
+#: code:addons/l10n_it_fatturapa/models/partner.py:113
 #, python-format
 msgid "Customer %s: city is needed for XML generation."
 msgstr "Cliente %s: per la generazione dell'XML è necessaria la città."
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:107
+#: code:addons/l10n_it_fatturapa/models/partner.py:117
 #, python-format
 msgid "Customer %s: country is needed for XML generation."
 msgstr "Cliente %s: per la generazione dell'XML è necessaria la nazione."
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:95
+#: code:addons/l10n_it_fatturapa/models/partner.py:105
 #, python-format
 msgid "Customer %s: street is needed for XML generation."
 msgstr "Cliente %s: per la generazione dell'XML è necessario l'indirizzo."
@@ -363,7 +363,6 @@ msgstr "Dettagli sconto o maggiorazione"
 #: model:ir.model.fields,field_description:l10n_it_fatturapa.field_faturapa_activity_progress_display_name
 #: model:ir.model.fields,field_description:l10n_it_fatturapa.field_faturapa_summary_data_display_name
 #: model:ir.model.fields,field_description:l10n_it_fatturapa.field_welfare_fund_data_line_display_name
-#: model:ir.model.fields,field_description:l10n_it_fatturapa.field_welfare_fund_type_display_name
 msgid "Display Name"
 msgstr "Nome visualizzato"
 
@@ -615,13 +614,13 @@ msgid "Is public document"
 msgstr "È un documento pubblico"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:90
+#: code:addons/l10n_it_fatturapa/models/partner.py:100
 #, fuzzy, python-format
 msgid "Italian partner %s must have VAT Number or Fiscal Code."
 msgstr "Il partner %s deve avere una partita IVA o un codice fiscale."
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:99
+#: code:addons/l10n_it_fatturapa/models/partner.py:109
 #, fuzzy, python-format
 msgid "Italian partner %s: ZIP is needed for XML generation."
 msgstr "Cliente %s: per la generazione dell'XML è necessario il CAP."
@@ -741,6 +740,7 @@ msgid "Municipality or city to which the Stable Organization refers"
 msgstr "Comune a cui si riferisce la stabile organizzazione"
 
 #. module: l10n_it_fatturapa
+#: model:ir.model.fields,field_description:l10n_it_fatturapa.field_welfare_fund_type_display_name
 #: model:ir.model.fields,field_description:l10n_it_fatturapa.field_welfare_fund_type_name
 msgid "Name"
 msgstr "Nome"
@@ -843,9 +843,16 @@ msgid "Partner"
 msgstr "Partner"
 
 #. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/partner.py:82
+#: code:addons/l10n_it_fatturapa/models/partner.py:84
 #, python-format
 msgid "Partner %s Addressee Code must be 7 characters long."
+msgstr "Il codice destinatario del partner %s deve essere lungo 7 caratteri."
+
+#. module: l10n_it_fatturapa
+#: code:addons/l10n_it_fatturapa/models/partner.py:90
+#, fuzzy, python-format
+#| msgid "Partner %s Addressee Code must be 7 characters long."
+msgid "Partner %s has Addressee PEC %s, the Addresse Code must be %s."
 msgstr "Il codice destinatario del partner %s deve essere lungo 7 caratteri."
 
 #. module: l10n_it_fatturapa
@@ -1124,24 +1131,6 @@ msgid "Sender"
 msgstr "Trasmittente"
 
 #. module: l10n_it_fatturapa
-#: model:ir.model.fields,field_description:l10n_it_fatturapa.field_account_config_settings_fatturapa_sequence_id
-#: model:ir.model.fields,field_description:l10n_it_fatturapa.field_res_company_fatturapa_sequence_id
-msgid "Sequence"
-msgstr "Sequenza"
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/company.py:68
-#, python-format
-msgid "Sequence %s already used by journal %s. Please select another one."
-msgstr "La sequenza %s è già usata dal registro %s. Selezionarne un'altra."
-
-#. module: l10n_it_fatturapa
-#: code:addons/l10n_it_fatturapa/models/company.py:61
-#, python-format
-msgid "Sequence %s can't use subsequences."
-msgstr "La sequenza %s non può usare sottosequenze."
-
-#. module: l10n_it_fatturapa
 #: selection:faturapa.summary.data,payability:0
 msgid "Split payment"
 msgstr "Scissione pagamenti"
@@ -1199,12 +1188,12 @@ msgstr "Rappresentante fiscale"
 msgid ""
 "The code, 7 characters long, assigned by ES to subjects with an accredited "
 "channel; if the addressee didn't accredit a channel to ES and invoices are "
-"received by PEC, the field must be filled with zeros ('0000000')."
+"received by PEC, the field must be the standard value ('0000000')."
 msgstr ""
 "Codice di 7 caratteri assegnato dallo SdI ai soggetti con canale "
 "accreditato. Se il destinatario non ha un canale accreditato presso lo SdI e "
-"riceve le fatture via PEC, l'elemento informativo deve essere valorizzato "
-"con tutti zeri (\"0000000\")."
+"riceve le fatture via PEC, l'elemento informativo deve corrispondere al "
+"valore standard (\"0000000\")."
 
 #. module: l10n_it_fatturapa
 #: model:ir.model.fields,help:l10n_it_fatturapa.field_fatturapa_attachments_res_model
@@ -1245,17 +1234,6 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_it_fatturapa.field_fatturapa_attachments_res_id
 msgid "The record id this is attached to."
 msgstr "L'ID del record a cui questo è collegato."
-
-#. module: l10n_it_fatturapa
-#: model:ir.model.fields,help:l10n_it_fatturapa.field_account_config_settings_fatturapa_sequence_id
-#: model:ir.model.fields,help:l10n_it_fatturapa.field_res_company_fatturapa_sequence_id
-msgid ""
-"The univocal progressive of the file is represented by an alphanumeric "
-"sequence of maximum length 5, its values are included in 'A'-'Z' and '0'-'9'"
-msgstr ""
-"Il progressivo univoco del file è rappresentato da una sequenza alfanumerica "
-"di lunghezza massima 5, i cui valori sono inclusi in \"A\"-\"Z\" e \"0\"-"
-"\"9\""
 
 #. module: l10n_it_fatturapa
 #: model:ir.model.fields,field_description:l10n_it_fatturapa.field_account_config_settings_fatturapa_sender_partner
@@ -1418,6 +1396,24 @@ msgstr "non imponibili"
 #: selection:faturapa.summary.data,non_taxable_nature:0
 msgid "reverse charge"
 msgstr "inversione contabile"
+
+#~ msgid "Sequence"
+#~ msgstr "Sequenza"
+
+#~ msgid "Sequence %s already used by journal %s. Please select another one."
+#~ msgstr "La sequenza %s è già usata dal registro %s. Selezionarne un'altra."
+
+#~ msgid "Sequence %s can't use subsequences."
+#~ msgstr "La sequenza %s non può usare sottosequenze."
+
+#~ msgid ""
+#~ "The univocal progressive of the file is represented by an alphanumeric "
+#~ "sequence of maximum length 5, its values are included in 'A'-'Z' and "
+#~ "'0'-'9'"
+#~ msgstr ""
+#~ "Il progressivo univoco del file è rappresentato da una sequenza "
+#~ "alfanumerica di lunghezza massima 5, i cui valori sono inclusi in \"A\"-"
+#~ "\"Z\" e \"0\"-\"9\""
 
 #~ msgid "Signed Xml file %s."
 #~ msgstr "File XML firmato %s."

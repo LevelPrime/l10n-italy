@@ -9,6 +9,8 @@
 import base64
 import logging
 import os
+import string
+import random
 
 from odoo import api, fields, models
 from odoo.tools.translate import _
@@ -57,6 +59,13 @@ except ImportError as err:
     _logger.debug(err)
 
 
+def id_generator(
+    size=5, chars=string.ascii_uppercase + string.digits +
+    string.ascii_lowercase
+):
+    return ''.join(random.choice(chars) for dummy in range(size))
+
+
 class WizardExportFatturapa(models.TransientModel):
     _name = "wizard.export.fatturapa"
     _description = "Export E-invoice"
@@ -73,50 +82,30 @@ class WizardExportFatturapa(models.TransientModel):
         help='This report will be automatically included in the created XML')
 
     def saveAttachment(self, fatturapa, number):
-
-        company = self.env.user.company_id
-
-        if not company.vat:
-            raise UserError(
-                _('Company %s TIN not set.') % company.name)
-        if (
-            company.fatturapa_sender_partner and not
-            company.fatturapa_sender_partner.vat
-        ):
-            raise UserError(
-                _('Partner %s TIN not set.')
-                % company.fatturapa_sender_partner.name
-            )
-        vat = company.vat
-        if company.fatturapa_sender_partner:
-            vat = company.fatturapa_sender_partner.vat
-        vat = vat.replace(' ', '').replace('.', '').replace('-', '')
         attach_obj = self.env['fatturapa.attachment.out']
+        vat = attach_obj.get_file_vat()
         attach_vals = {
-            'name': '%s_%s.xml' % (vat, str(number)),
-            'datas_fname': '%s_%s.xml' % (vat, str(number)),
+            'name': '%s_%s.xml' % (vat, number),
+            'datas_fname': '%s_%s.xml' % (vat, number),
             'datas': base64.encodestring(fatturapa.toxml("UTF-8")),
         }
         return attach_obj.create(attach_vals)
 
     def setProgressivoInvio(self, fatturapa):
 
-        company = self.env.user.company_id
-        fatturapa_sequence = company.fatturapa_sequence_id
-        if not fatturapa_sequence:
-            raise UserError(
-                _('E-invoice sequence not configured.'))
-        number = fatturapa_sequence.next_by_id()
+        file_id = id_generator()
+        while self.env['fatturapa.attachment.out'].file_name_exists(file_id):
+            file_id = id_generator()
         try:
             fatturapa.FatturaElettronicaHeader.DatiTrasmissione.\
-                ProgressivoInvio = number
+                ProgressivoInvio = file_id
         except (SimpleFacetValueError, SimpleTypeValueError) as e:
             msg = _(
                 'FatturaElettronicaHeader.DatiTrasmissione.'
                 'ProgressivoInvio:\n%s'
             ) % unicode(e)
             raise UserError(msg)
-        return number
+        return file_id
 
     def _setIdTrasmittente(self, company, fatturapa):
 
@@ -660,12 +649,9 @@ class WizardExportFatturapa(models.TransientModel):
                 unidecode(line.uom_id.name)) or None,
             PrezzoTotale='%.2f' % line.price_subtotal,
             AliquotaIVA=AliquotaIVA)
-        if line.discount:
-            ScontoMaggiorazione = ScontoMaggiorazioneType(
-                Tipo='SC',
-                Percentuale='%.2f' % line.discount
-            )
-            DettaglioLinea.ScontoMaggiorazione.append(ScontoMaggiorazione)
+        DettaglioLinea.ScontoMaggiorazione.extend(
+            self.setScontoMaggiorazione(line))
+
         if aliquota == 0.0:
             if not line.invoice_line_tax_ids[0].kind_id:
                 raise UserError(
@@ -679,7 +665,8 @@ class WizardExportFatturapa(models.TransientModel):
         if line.product_id:
             if line.product_id.default_code:
                 CodiceArticolo = CodiceArticoloType(
-                    CodiceTipo='ODOO',
+                    CodiceTipo=self.env['ir.config_parameter'].sudo(
+                    ).get_param('fatturapa.codicetipo.odoo', 'ODOO'),
                     CodiceValore=line.product_id.default_code
                 )
                 DettaglioLinea.CodiceArticolo.append(CodiceArticolo)
@@ -691,6 +678,15 @@ class WizardExportFatturapa(models.TransientModel):
                 DettaglioLinea.CodiceArticolo.append(CodiceArticolo)
         body.DatiBeniServizi.DettaglioLinee.append(DettaglioLinea)
         return True
+
+    def setScontoMaggiorazione(self, line):
+        res = []
+        if line.discount:
+            res.append(ScontoMaggiorazioneType(
+                Tipo='SC',
+                Percentuale='%.2f' % line.discount
+            ))
+        return res
 
     def setDatiRiepilogo(self, invoice, body):
         for tax_line in invoice.tax_line_ids:
