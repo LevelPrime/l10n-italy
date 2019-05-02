@@ -45,7 +45,7 @@ class ResCompany(models.Model):
     fatturapa_preview_style = fields.Selection([
         ('fatturaordinaria_v1.2.1.xsl', 'FatturaOrdinaria v1.2.1'),
         ('FoglioStileAssoSoftware_v1.1.xsl', 'AssoSoftware v1.1')],
-        string='Preview Format Style',
+        string='Preview Format Style', required=True,
         default='fatturaordinaria_v1.2.1.xsl')
 
 
@@ -110,7 +110,7 @@ class AccountConfigSettings(models.TransientModel):
         )
     fatturapa_preview_style = fields.Selection(
         related='company_id.fatturapa_preview_style',
-        string="Preview Format Style"
+        string="Preview Format Style", required=True
         )
 
     @api.onchange('company_id')
