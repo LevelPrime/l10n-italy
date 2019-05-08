@@ -419,4 +419,4 @@ class AccountInvoice(models.Model):
              "documents with same number)", copy=False)
     electronic_invoice_subjected = fields.Boolean(
         'Subjected to Electronic Invoice',
-        related='partner_id.electronic_invoice_subjected', readonly=True)
+        related='commercial_partner_id.electronic_invoice_subjected', readonly=True)
