@@ -16,7 +16,7 @@ from odoo import api, fields, models
 from odoo.tools.translate import _
 from odoo.exceptions import UserError
 
-from odoo.addons.l10n_it_fatturapa.bindings.fatturapa_v_1_2 import (
+from odoo.addons.l10n_it_fatturapa.bindings.fatturapa import (
     FatturaElettronica,
     FatturaElettronicaHeaderType,
     DatiTrasmissioneType,
@@ -689,6 +689,10 @@ class WizardExportFatturapa(models.TransientModel):
         return res
 
     def setDatiRiepilogo(self, invoice, body):
+        if not invoice.tax_line_ids:
+            raise UserError(
+                _("Invoice {invoice} has no tax lines")
+                .format(invoice=invoice.display_name))
         for tax_line in invoice.tax_line_ids:
             tax = tax_line.tax_id
             riepilogo = DatiRiepilogoType(
