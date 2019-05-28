@@ -10,7 +10,7 @@
                'con i dati della Banca d\'Italia.',
     'author': 'Giacomo Grasso, Gabriele Baldessari,'
               'Odoo Community Association (OCA)',
-    'website': 'http://www.odoo-community.org',
+    'website': 'https://github.com/OCA/l10n-italy/tree/10.0/l10n_it_currency_update',
     'license': 'AGPL-3',
     'depends': [
         'account',
