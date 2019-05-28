@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Bank of Italy currency update',
+    'name': "ITA - Aggiornamento valute Banca d'Italia",
     'version': '10.0.1.0.0',
     'category': 'Accounting & Finance',
     'summary': 'Modulo per aggiornare i tassi di cambio automaticamente '
