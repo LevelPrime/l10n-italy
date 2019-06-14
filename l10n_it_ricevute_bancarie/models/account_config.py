@@ -19,11 +19,13 @@ class AccountConfigSettings(models.TransientModel):
         help='Default Service for RiBa Due Cost (collection fees) on invoice',
         domain=[('type', '=', 'service')])
 
-    riba_payment_response = fields.Selection([('1', 'Required'),
-                                              ('2', 'Not Required'),
-                                              (' ', 'Bank Agreement')],
-           related='company_id.riba_payment_response', default=' ',
-           string='Require to send back the response of the RiBa payment')
+    riba_payment_response = fields.Selection(
+        [('1', 'Required'),
+         ('2', 'Not Required'),
+         (' ', 'Bank Agreement')],
+        related='company_id.riba_payment_response',
+        default=' ',
+        string='Require to send back the response of the RiBa payment')
 
     @api.model
     def default_get(self, fields):
@@ -44,8 +46,9 @@ class ResCompany(models.Model):
 
     due_cost_service_id = fields.Many2one('product.product')
 
-    riba_payment_response = fields.Selection([('1', 'Required'),
-                                              ('2', 'Not Required'),
-                                              (' ', 'Bank Agreement')],
-           default=' ',
-           string='Require to send back the response of the RiBa payment')
+    riba_payment_response = fields.Selection(
+        [('1', 'Required'),
+         ('2', 'Not Required'),
+         (' ', 'Bank Agreement')],
+        default=' ',
+        string='Require to send back the response of the RiBa payment')
