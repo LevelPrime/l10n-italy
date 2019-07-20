@@ -213,6 +213,7 @@ class MailThread(models.AbstractModel):
                                 'datas_fname': file_name,
                                 'datas': base64.encodestring(inv_file.read()),
                                 'company_id': company_id,
+                                'e_invoice_received_date': received_date,
                             })
         else:
             fatturapa_atts = fatturapa_attachment_in.search(
