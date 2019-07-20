@@ -183,6 +183,9 @@ class MailThread(models.AbstractModel):
         decoded = base64.b64decode(attachment.datas)
         fatturapa_attachment_in = self.env['fatturapa.attachment.in']
         fetchmail_server_id = self.env.context.get('fetchmail_server_id')
+        received_date = False
+        if message_dict is not None and 'date' in message_dict:
+            received_date = message_dict['date']
         company_id = False
         e_invoice_user_id = False
         if fetchmail_server_id:
