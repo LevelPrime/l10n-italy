@@ -69,6 +69,8 @@ class WizardLinkToInvoiceLine(models.TransientModel):
 
         import_wiz.set_efatt_rounding(FatturaBody, self.invoice_id)
 
+        import_wiz.set_roundings(FatturaBody, self.invoice_id)
+
         import_wiz.set_art73(FatturaBody, self.invoice_id)
 
         import_wiz.set_attachments_data(FatturaBody, self.invoice_id.id)
