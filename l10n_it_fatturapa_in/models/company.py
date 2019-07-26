@@ -46,25 +46,16 @@ class AccountConfigSettings(models.TransientModel):
         )
     arrotondamenti_attivi_account_id = fields.Many2one(
         related='company_id.arrotondamenti_attivi_account_id',
-        string='Active Rounding Account',
         domain=[('deprecated', '=', False)],
-        help="Account used for active rounding amount on bills.",
-        readonly=False,
-        )
+    )
     arrotondamenti_passivi_account_id = fields.Many2one(
         related='company_id.arrotondamenti_passivi_account_id',
-        string='Passive Rounding Account',
         domain=[('deprecated', '=', False)],
-        help="Account used for passive rounding amount on bills.",
-        readonly=False,
-        )
+    )
     arrotondamenti_tax_id = fields.Many2one(
         related='company_id.arrotondamenti_tax_id',
         domain=[('type_tax_use', '=', 'purchase'), ('amount', '=', 0.0)],
-        string='Rounding Tax',
-        help="Tax used for rounding amount on bills.",
-        readonly=False,
-        )
+    )
 
     @api.onchange('company_id')
     def onchange_company_id(self):

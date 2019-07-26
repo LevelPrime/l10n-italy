@@ -1045,15 +1045,15 @@ class WizardImportFatturapa(models.TransientModel):
             invoice_data['art73'] = True
 
     def set_roundings(self, FatturaBody, invoice):
-        Summary_datas = FatturaBody.DatiBeniServizi.DatiRiepilogo
-        if Summary_datas:
+        dati_riepilogo = FatturaBody.DatiBeniServizi.DatiRiepilogo
+        if dati_riepilogo:
             arrotondamenti_attivi_account_id = self.env.user.company_id.\
                 arrotondamenti_attivi_account_id
             arrotondamenti_passivi_account_id = self.env.user.company_id.\
                 arrotondamenti_passivi_account_id
             arrotondamenti_tax_id = self.env.user.company_id.\
                 arrotondamenti_tax_id
-            for summary in Summary_datas:
+            for summary in dati_riepilogo:
                 rounding = summary.Arrotondamento or 0.0
                 line_vals = {}
                 if rounding > 0.0:
