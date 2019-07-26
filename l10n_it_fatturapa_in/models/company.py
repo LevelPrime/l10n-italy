@@ -46,15 +46,12 @@ class AccountConfigSettings(models.TransientModel):
         )
     arrotondamenti_attivi_account_id = fields.Many2one(
         related='company_id.arrotondamenti_attivi_account_id',
-        domain=[('deprecated', '=', False)],
     )
     arrotondamenti_passivi_account_id = fields.Many2one(
         related='company_id.arrotondamenti_passivi_account_id',
-        domain=[('deprecated', '=', False)],
     )
     arrotondamenti_tax_id = fields.Many2one(
         related='company_id.arrotondamenti_tax_id',
-        domain=[('type_tax_use', '=', 'purchase'), ('amount', '=', 0.0)],
     )
 
     @api.onchange('company_id')
