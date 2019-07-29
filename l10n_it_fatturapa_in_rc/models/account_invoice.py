@@ -56,7 +56,7 @@ class Invoice(models.Model):
             amount_total = self.amount_total - amount_added_for_rc
             if float_compare(
                 amount_total, self.e_invoice_amount_total,
-                precision_rounding=self.currency_id .rounding
+                precision_rounding=self.currency_id.rounding
             ) != 0:
                 error_message = (
                     _("Total amount ({bill_amount_total}) "
