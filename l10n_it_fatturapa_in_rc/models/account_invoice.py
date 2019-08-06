@@ -32,7 +32,7 @@ class Invoice(models.Model):
             amount_tax = self.amount_tax - amount_added_for_rc
             if float_compare(
                 amount_tax, self.e_invoice_amount_tax,
-                precision_rounding=self.currency_id .rounding
+                precision_rounding=self.currency_id.rounding
             ) != 0:
                 error_message = (
                     _("Taxed amount ({bill_amount_tax}) "
