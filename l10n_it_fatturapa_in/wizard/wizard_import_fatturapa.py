@@ -117,7 +117,7 @@ class WizardImportFatturapa(models.TransientModel):
             if DatiAnagrafici.IdFiscaleIVA.IdPaese.upper() == 'IT':
                 vat = "%s%s" % (
                     DatiAnagrafici.IdFiscaleIVA.IdPaese,
-                    DatiAnagrafici.IdFiscaleIVA.IdCodice.rjust(11,'0')
+                    DatiAnagrafici.IdFiscaleIVA.IdCodice.rjust(11, '0')
                 )
             else:
                 vat = "%s%s" % (
