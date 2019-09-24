@@ -44,7 +44,7 @@ addon | version | summary
 [l10n_it_fatturapa_out_triple_discount](l10n_it_fatturapa_out_triple_discount/) | 10.0.1.0.1 | Modulo ponte tra emissione fatture elettroniche e sconto triplo
 [l10n_it_fatturapa_out_wt](l10n_it_fatturapa_out_wt/) | 10.0.1.0.1 | Modulo ponte tra emissione fatture elettroniche e ritenute.
 [l10n_it_fatturapa_pec](l10n_it_fatturapa_pec/) | 10.0.1.5.4 | Invio fatture elettroniche tramite PEC
-[l10n_it_fiscal_document_type](l10n_it_fiscal_document_type/) | 10.0.1.1.2 | Italian Localization - Tipi di documento fiscale per dichiarativi
+[l10n_it_fiscal_document_type](l10n_it_fiscal_document_type/) | 10.0.1.2.0 | Italian Localization - Tipi di documento fiscale per dichiarativi
 [l10n_it_fiscal_payment_term](l10n_it_fiscal_payment_term/) | 10.0.1.0.0 | Electronic invoices payment
 [l10n_it_fiscalcode](l10n_it_fiscalcode/) | 10.0.1.3.0 | Italian Localisation - Fiscal Code
 [l10n_it_fiscalcode_invoice](l10n_it_fiscalcode_invoice/) | 10.0.1.0.0 | Italian Fiscal Code in invoice PDF
@@ -66,7 +66,7 @@ addon | version | summary
 [l10n_it_website_portal_fiscalcode](l10n_it_website_portal_fiscalcode/) | 10.0.1.0.0 | Add fiscal code to details of frontend user
 [l10n_it_website_sale_corrispettivi](l10n_it_website_sale_corrispettivi/) | 10.0.1.1.1 | Italian localization - Website Sale Corrispettivi
 [l10n_it_website_sale_fiscalcode](l10n_it_website_sale_fiscalcode/) | 10.0.1.0.1 | Website Sale FiscalCode
-[l10n_it_withholding_tax](l10n_it_withholding_tax/) | 10.0.1.2.5 | Italian Withholding Tax
+[l10n_it_withholding_tax](l10n_it_withholding_tax/) | 10.0.1.2.6 | Italian Withholding Tax
 [l10n_it_withholding_tax_causali](l10n_it_withholding_tax_causali/) | 10.0.1.0.0 | Causali pagamento per ritenute d'acconto
 [l10n_it_withholding_tax_payment](l10n_it_withholding_tax_payment/) | 10.0.1.1.0 | Italian Withholding Tax Payment
 
