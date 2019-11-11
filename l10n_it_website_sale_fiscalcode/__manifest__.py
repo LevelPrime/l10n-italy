@@ -7,7 +7,7 @@
     'category': 'e-commerce',
     'author': "Agile Business Group,"
               "Odoo Community Association (OCA)",
-    'version': '10.0.1.0.1',
+    'version': '10.0.1.0.2',
     'license': 'LGPL-3',
     'website': 'http://www.agilebg.com',
     'depends': [
@@ -18,4 +18,5 @@
         'views/templates.xml',
     ],
     'installable': True,
+    'auto_install': True,
 }
