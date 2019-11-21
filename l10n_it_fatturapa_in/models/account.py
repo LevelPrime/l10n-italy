@@ -185,8 +185,8 @@ class AccountInvoice(models.Model):
     @api.model
     def compute_xml_amount_untaxed(self, FatturaBody):
         amount_untaxed = float(
-                FatturaBody.DatiGenerali.DatiGeneraliDocumento.Arrotondamento
-                or 0.0)
+            FatturaBody.DatiGenerali.DatiGeneraliDocumento.Arrotondamento
+            or 0.0)
         for Riepilogo in FatturaBody.DatiBeniServizi.DatiRiepilogo:
             rounding = float(Riepilogo.Arrotondamento or 0.0)
             amount_untaxed += float(Riepilogo.ImponibileImporto) + rounding
