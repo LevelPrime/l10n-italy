@@ -23,7 +23,6 @@
                 src_model="account.invoice"
                 target="new"
                 view_id="wizard_export_fatturapa_form_view_regenerate"
-                view_mode="form"
-                context="{'regenerate_xml': True}"/>
+                view_mode="form"/>
 
 </odoo>
