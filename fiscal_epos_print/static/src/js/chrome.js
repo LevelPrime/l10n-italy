@@ -120,6 +120,7 @@ odoo.define("fiscal_epos_print.chrome", function (require) {
         template: 'PrinterFiscalReprintLast',
 
         button_click: function () {
+            var self = this;
             this.chrome.loading_show();
             this.chrome.loading_message(_t('Connecting to the fiscal printer'));
             var protocol = ((this.pos.config.use_https) ? 'https://' : 'http://');
