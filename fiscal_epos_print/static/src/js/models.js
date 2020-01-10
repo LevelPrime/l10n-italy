@@ -85,6 +85,40 @@ odoo.define('fiscal_epos_print.models', function (require) {
             return {url: printer_url};
         },
 
+        // TODO: Do we need to call the super?
+        // The problem here is that the v10 has wrong calculation when rounding globally
+        get_total_tax: function() {
+            if (this.pos.company.tax_calculation_rounding_method === "round_globally") {
+                // As always, we need:
+                // 1. For each tax, sum their amount across all order lines
+                // 2. Round that result
+                // 3. Sum all those rounded amounts
+                var groupTaxes = {};
+                this.orderlines.each(function (line) {
+                    var taxDetails = line.get_tax_details();
+                    var taxIds = Object.keys(taxDetails);
+                    for (var t = 0; t<taxIds.length; t++) {
+                        var taxId = taxIds[t];
+                        if (!(taxId in groupTaxes)) {
+                            groupTaxes[taxId] = 0;
+                        }
+                        groupTaxes[taxId] += taxDetails[taxId];
+                    }
+                });
+
+                var sum = 0;
+                var taxIds = Object.keys(groupTaxes);
+                for (var j = 0; j<taxIds.length; j++) {
+                    var taxAmount = groupTaxes[taxIds[j]];
+                    sum += round_pr(taxAmount, this.pos.currency.rounding);
+                }
+                return sum;
+            } else {
+                return round_pr(this.orderlines.reduce((function(sum, orderLine) {
+                    return sum + orderLine.get_tax();
+                }), 0), this.pos.currency.rounding);
+            }
+        },
     });
 
     var _orderline_super = models.Orderline.prototype;
@@ -110,6 +144,10 @@ odoo.define('fiscal_epos_print.models', function (require) {
         compute_all: function(taxes, price_unit, quantity, currency_rounding, no_map_tax) {
             var res = _orderline_super.compute_all.call(this, taxes, price_unit, quantity, currency_rounding, no_map_tax);
             var self = this;
+
+            if (this.pos.company.tax_calculation_rounding_method == "round_globally"){
+               currency_rounding = currency_rounding * 0.00001;
+            }
 
             var total_excluded = round_pr(price_unit * quantity, currency_rounding);
             var total_included = total_excluded;
