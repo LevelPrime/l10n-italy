@@ -6,7 +6,7 @@
     right: 10px;
     top: 10px;
     width: 200px;
-    font-size: 10px;
+    font-size: 13px;
 
     background: rgba(0,0,0,0.82);
     color: white;
@@ -26,7 +26,7 @@
 .pos .epson-fp81ii-widget .content {
     overflow: hidden;
 }
-.pos .epson-fp81ii-widget h1{
+.pos .epson-fp81ii-widget h1 {
     background:black;
     padding-top: 10px;
     padding-left: 10px;
