@@ -148,15 +148,6 @@ odoo.define("fiscal_epos_print.epson_epos_print", function (require) {
                     return;
                 }
 
-                if (res['code'] == "EPTR_REC_EMPTY"){
-                    sender.chrome.screens['receipt'].lock_screen(true);
-                    sender.pos.gui.show_popup('error', {
-                        'title': _t('Error'),
-                        'body': _t('Missing paper'),
-                    });
-                    return;
-                }
-
                 if (add_info.responseCommand == "1138") {
                     // coming from FiscalPrinterADEFilesButtonWidget
                     var to_be_sent = add_info.responseData[9] + add_info.responseData[10] + add_info.responseData[11] + add_info.responseData[12];
