@@ -86,11 +86,15 @@ odoo.define('fiscal_epos_print.models', function (require) {
         },
 
         get_total_with_tax: function() {
-            if (this.pos.company.tax_calculation_rounding_method === "round_globally") {
-                return this.get_subtotal();
-            }
-            else {
-                return this.get_total_without_tax() + this.get_total_tax();
+            if (this.pos.config.iface_tax_included) {
+                if (this.pos.company.tax_calculation_rounding_method === "round_globally") {
+                    return this.get_subtotal();
+                }
+                else {
+                    return this.get_total_without_tax() + this.get_total_tax();
+                }
+            } else {
+                return this._super();
             }
         },
 
