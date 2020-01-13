@@ -51,6 +51,9 @@
     display: block;
     cursor:pointer;
 }
+.pos .epson-fp81ii-widget .button:hover{
+    background: #546E7A;
+}
 .pos .epson-fp81ii-widget .category-label {
     position: relative;
     padding: 4px;
