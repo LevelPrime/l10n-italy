@@ -5,6 +5,7 @@
 from .e_invoice_common import EInvoiceCommon
 from odoo.modules import get_module_resource
 from odoo.fields import Datetime
+
 import mock
 
 

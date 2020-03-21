@@ -17,9 +17,9 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [account_invoice_report_ddt_group](account_invoice_report_ddt_group/) | 10.0.0.3.1 | Account invoice report grouped by DDT
-[account_vat_period_end_statement](account_vat_period_end_statement/) | 10.0.1.4.2 | Period End VAT Statement
+[account_vat_period_end_statement](account_vat_period_end_statement/) | 10.0.1.5.0 | Period End VAT Statement
 [l10n_it_abicab](l10n_it_abicab/) | 10.0.1.0.0 | Base Bank ABI/CAB codes
-[l10n_it_account](l10n_it_account/) | 10.0.1.2.3 | Italian Localization - Account
+[l10n_it_account](l10n_it_account/) | 10.0.1.2.4 | Italian Localization - Account
 [l10n_it_account_stamp](l10n_it_account_stamp/) | 10.0.1.0.1 | Tax stamp automatic management
 [l10n_it_account_stamp_ddt](l10n_it_account_stamp_ddt/) | 10.0.1.0.0 | Modulo ponte tra imposta di bollo e DDT
 [l10n_it_account_stamp_sale](l10n_it_account_stamp_sale/) | 10.0.1.0.1 | Modulo ponte tra imposta di bollo e vendite
@@ -27,7 +27,7 @@ addon | version | summary
 [l10n_it_ateco](l10n_it_ateco/) | 10.0.1.0.0 | Ateco codes
 [l10n_it_base_location_geonames_import](l10n_it_base_location_geonames_import/) | 10.0.1.0.0 | Import base_location entries (provinces) from Geonames
 [l10n_it_causali_pagamento](l10n_it_causali_pagamento/) | 10.0.1.0.0 | Aggiunge la tabella delle causali di pagamento da usare ad esempio nelle ritenute d'acconto
-[l10n_it_central_journal](l10n_it_central_journal/) | 10.0.0.0.2 | Italian Localization - Account central journal
+[l10n_it_central_journal](l10n_it_central_journal/) | 10.0.0.1.1 | Italian Localization - Account central journal
 [l10n_it_codici_carica](l10n_it_codici_carica/) | 10.0.1.0.0 | Aggiunge la tabella dei codici carica da usare nei dichiarativi fiscali italiani
 [l10n_it_corrispettivi](l10n_it_corrispettivi/) | 10.0.1.2.4 | Italian Localization - Corrispettivi
 [l10n_it_corrispettivi_sale](l10n_it_corrispettivi_sale/) | 10.0.1.0.3 | Modulo per integrare i corrispettivi in odoo con gli ordini di vendita.
@@ -35,7 +35,7 @@ addon | version | summary
 [l10n_it_esigibilita_iva](l10n_it_esigibilita_iva/) | 10.0.1.0.0 | Esigibilità IVA
 [l10n_it_fatturapa](l10n_it_fatturapa/) | 10.0.2.8.0 | Fatture elettroniche
 [l10n_it_fatturapa_export_zip](l10n_it_fatturapa_export_zip/) | 10.0.1.0.0 | Permette di esportare in uno ZIP diversi file XML di fatture elettroniche
-[l10n_it_fatturapa_in](l10n_it_fatturapa_in/) | 10.0.1.12.1 | Ricezione fatture elettroniche
+[l10n_it_fatturapa_in](l10n_it_fatturapa_in/) | 10.0.1.14.0 | Ricezione fatture elettroniche
 [l10n_it_fatturapa_in_purchase](l10n_it_fatturapa_in_purchase/) | 10.0.1.0.0 | Modulo ponte tra ricezione fatture elettroniche e acquisti
 [l10n_it_fatturapa_in_rc](l10n_it_fatturapa_in_rc/) | 10.0.1.1.1 | Modulo di collegamento tra e-fattura in acquisto e reverse charge
 [l10n_it_fatturapa_out](l10n_it_fatturapa_out/) | 10.0.1.5.1 | Emissione fatture elettroniche
@@ -43,7 +43,7 @@ addon | version | summary
 [l10n_it_fatturapa_out_stamp](l10n_it_fatturapa_out_stamp/) | 10.0.1.0.2 | Modulo ponte tra emissione fatture elettroniche e imposta di bollo
 [l10n_it_fatturapa_out_triple_discount](l10n_it_fatturapa_out_triple_discount/) | 10.0.1.0.1 | Modulo ponte tra emissione fatture elettroniche e sconto triplo
 [l10n_it_fatturapa_out_wt](l10n_it_fatturapa_out_wt/) | 10.0.1.0.1 | Modulo ponte tra emissione fatture elettroniche e ritenute.
-[l10n_it_fatturapa_pec](l10n_it_fatturapa_pec/) | 10.0.1.7.0 | Invio fatture elettroniche tramite PEC
+[l10n_it_fatturapa_pec](l10n_it_fatturapa_pec/) | 10.0.1.8.0 | Invio fatture elettroniche tramite PEC
 [l10n_it_fiscal_document_type](l10n_it_fiscal_document_type/) | 10.0.1.2.0 | Italian Localization - Tipi di documento fiscale per dichiarativi
 [l10n_it_fiscal_payment_term](l10n_it_fiscal_payment_term/) | 10.0.1.0.0 | Electronic invoices payment
 [l10n_it_fiscalcode](l10n_it_fiscalcode/) | 10.0.1.3.0 | Italian Localisation - Fiscal Code
@@ -61,8 +61,8 @@ addon | version | summary
 [l10n_it_ricevute_bancarie](l10n_it_ricevute_bancarie/) | 10.0.1.3.0 | Ricevute Bancarie
 [l10n_it_sdi_channel](l10n_it_sdi_channel/) | 10.0.1.2.0 | Aggiunge il canale di invio/ricezione dei file XML attraverso lo SdI
 [l10n_it_split_payment](l10n_it_split_payment/) | 10.0.1.1.0 | Split Payment
-[l10n_it_vat_registries](l10n_it_vat_registries/) | 10.0.1.3.0 | ITA - Registri IVA
-[l10n_it_vat_registries_cash_basis](l10n_it_vat_registries_cash_basis/) | 10.0.1.0.0 | Italian Localization - VAT Registries - Cash Basis
+[l10n_it_vat_registries](l10n_it_vat_registries/) | 10.0.1.3.1 | ITA - Registri IVA
+[l10n_it_vat_registries_cash_basis](l10n_it_vat_registries_cash_basis/) | 10.0.1.0.1 | Italian Localization - VAT Registries - Cash Basis
 [l10n_it_vat_registries_split_payment](l10n_it_vat_registries_split_payment/) | 10.0.1.0.0 | Bridge module to make VAT registries work with Split Payment
 [l10n_it_website_portal_fatturapa](l10n_it_website_portal_fatturapa/) | 10.0.1.0.2 | Add fatturapa fields and checks in frontend user's details
 [l10n_it_website_portal_fiscalcode](l10n_it_website_portal_fiscalcode/) | 10.0.1.0.0 | Add fiscal code to details of frontend user

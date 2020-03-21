@@ -154,7 +154,7 @@ class MailThread(models.AbstractModel):
         for attachment in self.env['ir.attachment'].browse(
                 [att_id for m, att_id in attachment_ids]):
             if fatturapa_regex.match(attachment.name):
-                self.create_fatturapa_attachment_in(attachment)
+                self.create_fatturapa_attachment_in(attachment, message_dict)
         message_dict['attachment_ids'] = attachment_ids
         self.clean_message_dict(message_dict)
         # model and res_id are only needed by

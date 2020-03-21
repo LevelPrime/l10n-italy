@@ -5,6 +5,7 @@
 <template id="report_giornale">
     <t t-call="report.html_container">
         <t t-set="title" t-value="'Stampa libro giornale'"/>
+        <t t-set="l10n_it_count_fiscal_year" t-value="year_footer"/>
         <t t-call="l10n_it_account.internal_layout">
             <div class="page">
                 <t t-set="print_details" t-value="1"/>
@@ -108,8 +109,14 @@
                                 </td>
                                 <!-- Name -->
                                 <td class="left_without_line">
-                                    <div style="page-break-inside: avoid"
-                                    t-esc="line.name" />
+                                    <t t-if="line.account_id.user_type_id.type in ['receivable', 'payable']">
+                                        <div style="page-break-inside: avoid"
+                                        t-esc="line.partner_id.name" />
+                                    </t>
+                                    <t t-else="">
+                                        <div style="page-break-inside: avoid"
+                                        t-esc="line.name" />
+                                    </t>
                                 </td>
                                 <!-- Debit -->
                                 <td class="right_without_line">
