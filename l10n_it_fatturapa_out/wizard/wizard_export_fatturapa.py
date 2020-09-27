@@ -14,6 +14,7 @@ import random
 import itertools
 
 from odoo import api, fields, models
+from odoo.tools.float_utils import float_round
 from odoo.tools.translate import _
 from odoo.exceptions import UserError
 
@@ -718,7 +719,7 @@ class WizardExportFatturapa(models.TransientModel):
         if line.discount:
             res.append(ScontoMaggiorazioneType(
                 Tipo='SC',
-                Percentuale='%.2f' % line.discount
+                Percentuale='%.8f' % float_round(line.discount, 8)
             ))
         return res
 
