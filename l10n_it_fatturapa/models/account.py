@@ -138,6 +138,28 @@ class WelfareFundDataLine(models.Model):
     )
 
 
+class WithholdingDataLine(models.Model):
+    _name = "withholding.data.line"
+    _description = 'E-invoice Withholding Data'
+
+    name = fields.Selection(
+        selection=[
+            ('RT01', 'Natural Person'),
+            ('RT02', 'Legal Person'),
+            ('RT03', 'INPS'),
+            ('RT04', 'ENASARCO'),
+            ('RT05', 'ENPAM'),
+            ('RT06', 'OTHER'),
+        ],
+        string='Withholding Type'
+    )
+    amount = fields.Float('Withholding amount')
+    invoice_id = fields.Many2one(
+        'account.invoice', 'Related Invoice',
+        ondelete='cascade', index=True
+    )
+
+
 class DiscountRisePrice(models.Model):
     # _position = ['2.1.1.8', '2.2.1.10']
     _name = "discount.rise.price"
@@ -329,9 +351,9 @@ class AccountInvoice(models.Model):
         [('CC', 'Assignee / Partner'), ('TZ', 'Third Person')], 'Sender')
     #  2.1.1.5
     #  2.1.1.5.1
-    ftpa_withholding_type = fields.Selection(
-        [('RT01', 'Natural Person'), ('RT02', 'Legal Person')],
-        'Withholding Type'
+    ftpa_withholding_ids = fields.One2many(
+        'withholding.data.line', 'invoice_id',
+        'Withholding', copy=False
     )
     #  2.1.1.5.2 2.1.1.5.3 2.1.1.5.4 mapped to l10n_it_withholding_tax fields
 
