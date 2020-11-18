@@ -10,7 +10,8 @@ class AccountFiscalPosition(models.Model):
 
     _inherit = 'account.fiscal.position'
 
-    valid_for_dichiarazione_intento = fields.Boolean()
+    valid_for_dichiarazione_intento = fields.Boolean(
+        "Valid for declaration of intent")
 
     @api.constrains('valid_for_dichiarazione_intento', 'tax_ids')
     @api.multi
@@ -20,4 +21,13 @@ class AccountFiscalPosition(models.Model):
                     not fiscal_position.tax_ids:
                 raise ValidationError(_(
                     'Define taxes for fiscal position %s valid '
-                    'for dichiarazione intento') % fiscal_position.name)
+                    'for declaration of intent') % fiscal_position.name)
+
+
+class AccountMoveLine(models.Model):
+
+    _inherit = 'account.move.line'
+
+    force_dichiarazione_intento_id = fields.Many2one(
+        'dichiarazione.intento',
+        string='Force Declaration of Intent')

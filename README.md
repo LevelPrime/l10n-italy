@@ -31,7 +31,8 @@ addon | version | summary
 [l10n_it_codici_carica](l10n_it_codici_carica/) | 10.0.1.0.0 | Aggiunge la tabella dei codici carica da usare nei dichiarativi fiscali italiani
 [l10n_it_corrispettivi](l10n_it_corrispettivi/) | 10.0.1.2.4 | Italian Localization - Corrispettivi
 [l10n_it_corrispettivi_sale](l10n_it_corrispettivi_sale/) | 10.0.1.0.3 | Modulo per integrare i corrispettivi in odoo con gli ordini di vendita.
-[l10n_it_ddt](l10n_it_ddt/) | 10.0.1.8.1 | Documento di Trasporto
+[l10n_it_ddt](l10n_it_ddt/) | 10.0.1.9.0 | Documento di Trasporto
+[l10n_it_dichiarazione_intento](l10n_it_dichiarazione_intento/) | 10.0.1.0.0 | Gestione dichiarazioni di intento
 [l10n_it_esigibilita_iva](l10n_it_esigibilita_iva/) | 10.0.1.0.0 | Esigibilità IVA
 [l10n_it_fatturapa](l10n_it_fatturapa/) | 10.0.2.8.0 | Fatture elettroniche
 [l10n_it_fatturapa_export_zip](l10n_it_fatturapa_export_zip/) | 10.0.1.0.0 | Permette di esportare in uno ZIP diversi file XML di fatture elettroniche
@@ -48,8 +49,8 @@ addon | version | summary
 [l10n_it_fiscal_payment_term](l10n_it_fiscal_payment_term/) | 10.0.1.0.0 | Electronic invoices payment
 [l10n_it_fiscalcode](l10n_it_fiscalcode/) | 10.0.1.3.0 | Italian Localisation - Fiscal Code
 [l10n_it_fiscalcode_invoice](l10n_it_fiscalcode_invoice/) | 10.0.1.0.0 | Italian Fiscal Code in invoice PDF
-[l10n_it_intrastat](l10n_it_intrastat/) | 10.0.1.0.1 | Riclassificazione merci e servizi per dichiarazioni Intrastat
-[l10n_it_intrastat_statement](l10n_it_intrastat_statement/) | 10.0.1.0.0 | Dichiarazione Intrastat per l'Agenzia delle Dogane
+[l10n_it_intrastat](l10n_it_intrastat/) | 10.0.1.0.2 | Riclassificazione merci e servizi per dichiarazioni Intrastat
+[l10n_it_intrastat_statement](l10n_it_intrastat_statement/) | 10.0.1.0.2 | Dichiarazione Intrastat per l'Agenzia delle Dogane
 [l10n_it_invoices_data_communication](l10n_it_invoices_data_communication/) | 10.0.1.1.2 | Comunicazione dati fatture (c.d. "nuovo spesometro" o "esterometro")
 [l10n_it_invoices_data_communication_fatturapa](l10n_it_invoices_data_communication_fatturapa/) | 10.0.1.0.0 | Integrazione fatturazione elettronica e Comunicazione dati fatture (c.d. "nuovo spesometro")
 [l10n_it_ipa](l10n_it_ipa/) | 10.0.2.0.0 | IPA Code (IndicePA)

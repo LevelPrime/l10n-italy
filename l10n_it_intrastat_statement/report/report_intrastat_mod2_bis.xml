@@ -6,10 +6,10 @@
 
 <odoo>
     <template id="report_intrastat_mod2_bis">
-        <t t-call="web.html_container">
+        <t t-call="report.html_container">
             <t t-translation="off">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="web.internal_layout">
+                    <t t-call="report.internal_layout">
                         <div class="page">
                             <div class="row col-12">
 
@@ -117,7 +117,7 @@
                                         <td><span t-field="l.country_partner_id.code"/></td>
                                         <td><span t-field="l.vat_code"/></td>
                                         <td><span t-field="l.amount_euro"/></td>
-                                        <td></td>
+                                        <td><span t-if="l.amount_currency" t-field="l.amount_currency"/></td>
                                         <td><span t-field="l.transaction_nature_id.code"/></td>
                                         <td><span t-field="l.intrastat_code_id.name"/></td>
                                         <td><span t-field="l.weight_kg"/></td>

@@ -11,7 +11,7 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 class TestDichiarazioneIntento(TransactionCase):
 
-    def _create_dichiarazione(self, partner, type):
+    def _create_dichiarazione(self, partner, type_d):
         return self.env['dichiarazione.intento'].sudo().create({
             'partner_id': partner.id,
             'partner_document_number': 'PartnerTest%s' % partner.id,
@@ -22,7 +22,8 @@ class TestDichiarazioneIntento(TransactionCase):
             'taxes_ids': [(6, 0, [self.tax1.id])],
             'limit_amount': 1000.00,
             'fiscal_position_id': self.fiscal_position.id,
-            'type': type,
+            'type': type_d,
+            'telematic_protocol': '08060120341234567-000001',
             })
 
     def _create_invoice(self, partner, tax=False, date=False):
@@ -41,7 +42,6 @@ class TestDichiarazioneIntento(TransactionCase):
             'date_invoice': invoice_date,
             'type': 'out_invoice',
             'name': 'Test Invoice for Dichiarazione',
-            'reference_type': 'none',
             'payment_term_id': payment_term.id,
             'account_id': self.account.id,
             'invoice_line_ids': invoice_line_data,
@@ -62,7 +62,6 @@ class TestDichiarazioneIntento(TransactionCase):
             'date_invoice': invoice_date,
             'type': 'out_refund',
             'name': 'Test Refund for Dichiarazione',
-            'reference_type': 'none',
             'payment_term_id': payment_term.id,
             'account_id': self.account.id,
             'invoice_line_ids': invoice_line_data,
@@ -70,6 +69,7 @@ class TestDichiarazioneIntento(TransactionCase):
             })
 
     def setUp(self):
+
         super(TestDichiarazioneIntento, self).setUp()
         self.tax_model = self.env['account.tax']
         self.account = self.env['account.account'].search([
@@ -83,6 +83,7 @@ class TestDichiarazioneIntento(TransactionCase):
         self.today_date = fields.Date.today()
         self.partner1 = self.env.ref('base.res_partner_2')
         self.partner2 = self.env.ref('base.res_partner_12')
+        self.partner3 = self.env.ref('base.res_partner_10')
         self.tax22 = self.tax_model.create({
             'name': '22%',
             'amount': 22,
@@ -118,6 +119,16 @@ class TestDichiarazioneIntento(TransactionCase):
                     'tax_dest_id': self.tax22.id,
                     })]
                 })
+        self.fiscal_position2 = self.env[
+            'account.fiscal.position'].sudo().create({
+                'name': 'Dichiarazione Test 2',
+                'valid_for_dichiarazione_intento': False,
+                'tax_ids': [(0, 0, {
+                    'tax_src_id': self.tax22.id,
+                    'tax_dest_id': self.tax10.id,
+                    })]
+                })
+
         self.dichiarazione1 = self._create_dichiarazione(self.partner1, 'out')
         self.dichiarazione2 = self._create_dichiarazione(self.partner2, 'out')
         self.dichiarazione3 = self._create_dichiarazione(self.partner2, 'out')
@@ -134,6 +145,8 @@ class TestDichiarazioneIntento(TransactionCase):
                                                    tax=self.tax1)
         self.refund1 = self._create_refund(self.partner1, tax=self.tax1,
                                            invoice=self.invoice2)
+        self.invoice4 = self._create_invoice(self.partner3, tax=self.tax22)
+        self.invoice4.fiscal_position_id = self.fiscal_position2.id
 
     def test_dichiarazione_data(self):
         self.assertTrue(self.dichiarazione1.number)
@@ -147,10 +160,10 @@ class TestDichiarazioneIntento(TransactionCase):
         dichiarazione_model = self.env['dichiarazione.intento'].sudo()
         self.assertFalse(dichiarazione_model.get_valid())
         records = dichiarazione_model.get_valid(
-            type='out', partner_id=self.partner1.id, date=self.today_date)
+            type_d='out', partner_id=self.partner1.id, date=self.today_date)
         self.assertEquals(len(records), 1)
         records = dichiarazione_model.get_valid(
-            type='out', partner_id=self.partner2.id, date=self.today_date)
+            type_d='out', partner_id=self.partner2.id, date=self.today_date)
         self.assertEquals(len(records), 2)
 
     def test_dichiarazione_state_change(self):
@@ -161,7 +174,7 @@ class TestDichiarazioneIntento(TransactionCase):
             DEFAULT_SERVER_DATE_FORMAT)
         self.dichiarazione1.date_end = previuos_date.strftime(
             DEFAULT_SERVER_DATE_FORMAT)
-        self.assertEqual(self.dichiarazione1.state, 'close')
+        self.assertEqual(self.dichiarazione1.state, 'expired')
 
     def test_invoice_validation_with_no_effect_on_dichiarazione(self):
         previous_used_amount = self.dichiarazione1.used_amount
@@ -209,8 +222,18 @@ class TestDichiarazioneIntento(TransactionCase):
 
     def test_refund_with_amount_bigger_than_residual(self):
         self.invoice2.action_invoice_open()
-        previous_used_amount = self.dichiarazione1.used_amount
         self.refund1.invoice_line_ids[0].quantity = 10
-        self.refund1.action_invoice_open()
-        post_used_amount = self.dichiarazione1.used_amount
-        self.assertNotEqual(previous_used_amount, post_used_amount)
+
+        # Check that base amount has been updated
+        self.assertEqual(self.refund1.tax_line_ids[0].base, 1000)
+
+        # Refund goes over plafond: 100 + 1000 > 1000
+        self.assertEqual(self.dichiarazione1.available_amount, 100)
+        self.assertEqual(self.refund1.amount_untaxed, 1000)
+        self.assertEqual(self.dichiarazione1.limit_amount, 1000)
+        with self.assertRaises(UserError):
+            self.refund1.action_invoice_open()
+
+    def test_fiscal_position_no_dichiarazione(self):
+        self.invoice4._onchange_date_invoice()
+        self.assertEqual(self.invoice4.fiscal_position_id.id, self.fiscal_position2.id)
