@@ -15,14 +15,4 @@
             </xpath>
         </field>
     </record>
-
-    <act_window id="action_wizard_export_fatturapa_regenerate"
-                key2="client_action_multi"
-                name="Re-Export Electronic Invoice"
-                res_model="wizard.export.fatturapa"
-                src_model="account.invoice"
-                target="new"
-                view_id="wizard_export_fatturapa_form_view_regenerate"
-                view_mode="form"/>
-
 </odoo>
