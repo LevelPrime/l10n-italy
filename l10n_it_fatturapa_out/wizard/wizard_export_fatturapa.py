@@ -712,14 +712,14 @@ class WizardExportFatturapa(models.TransientModel):
                 )
                 DettaglioLinea.CodiceArticolo.append(CodiceArticolo)
         body.DatiBeniServizi.DettaglioLinee.append(DettaglioLinea)
-        return True
+        return DettaglioLinea
 
     def setScontoMaggiorazione(self, line):
         res = []
         if line.discount:
             res.append(ScontoMaggiorazioneType(
                 Tipo='SC',
-                Percentuale='%.8f' % float_round(line.discount, 8)
+                Percentuale='%.2f' % float_round(line.discount, 8)
             ))
         return res
 
