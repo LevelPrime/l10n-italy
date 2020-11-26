@@ -1095,7 +1095,7 @@ class WizardImportFatturapa(models.TransientModel):
             line_sequence = max(invoice.invoice_line_ids.mapped('sequence'))
             line_vals = []
             for summary in FatturaBody.DatiBeniServizi.DatiRiepilogo:
-                to_round = float(summary.Arrotondamento or 0.0)
+                to_round = float_round(float(summary.Arrotondamento or 0.0), 2)
                 if to_round != 0.0:
                     account_taxes = self.get_account_taxes(
                         summary.AliquotaIVA, summary.Natura)
