@@ -1116,7 +1116,8 @@ class WizardImportFatturapa(models.TransientModel):
                             [(6, 0, [invoice_line_tax_id])],
                     })
             if line_vals:
-                self.env['account.invoice.line'].create(line_vals)
+                for vals in line_vals:
+                    self.env['account.invoice.line'].create(vals)
 
     def set_efatt_rounding(self, FatturaBody, invoice_data):
         if FatturaBody.DatiGenerali.DatiGeneraliDocumento.Arrotondamento:
