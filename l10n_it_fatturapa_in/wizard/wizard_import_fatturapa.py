@@ -1292,7 +1292,7 @@ class WizardImportFatturapa(models.TransientModel):
                     'tax_rate': summary.AliquotaIVA or 0.0,
                     'non_taxable_nature': summary.Natura or False,
                     'incidental_charges': summary.SpeseAccessorie or 0.0,
-                    'rounding': float_round((summary.Arrotondamento or 0.0), 2),
+                    'rounding': summary.Arrotondamento,
                     'amount_untaxed': summary.ImponibileImporto or 0.0,
                     'amount_tax': summary.Imposta or 0.0,
                     'payability': summary.EsigibilitaIVA or False,
