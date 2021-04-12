@@ -396,7 +396,8 @@ class WizardImportFatturapa(models.TransientModel):
                 else:
                     templates = supplier_infos.mapped('product_tmpl_id')
                     if len(templates) == 1:
-                        product = templates.product_variant_ids[0]
+                        product = (templates.product_variant_ids
+                                   and templates.product_variant_ids[0])
         if not product and partner.e_invoice_default_product_id:
             product = partner.e_invoice_default_product_id
         return product
@@ -1098,7 +1099,8 @@ class WizardImportFatturapa(models.TransientModel):
                     _('Round up and down tax is not set')
                 )
 
-            line_sequence = max(invoice.invoice_line_ids.mapped('sequence'))
+            # invoice may have no lines at all if imported with minimum detail level
+            line_sequence = max(invoice.invoice_line_ids.mapped('sequence') or [0])
             line_vals = []
             for summary in FatturaBody.DatiBeniServizi.DatiRiepilogo:
                 to_round = float(summary.Arrotondamento or 0.0)
