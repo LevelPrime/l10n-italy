@@ -52,6 +52,7 @@ class WizardGiornale(models.TransientModel):
                                    'Target Move', default='all')
     fiscal_page_base = fields.Integer('Last printed page', required=True)
     start_row = fields.Integer('Start row', required=True)
+    print_row = fields.Integer('Row for page', default=1)
     year_footer = fields.Char(
         string='Year for Footer',
         help="Value printed near number of page in the footer")
@@ -59,6 +60,7 @@ class WizardGiornale(models.TransientModel):
     @api.onchange('daterange')
     def on_change_daterange(self):
         if self.daterange:
+            self.print_row = self.daterange.print_row
             date_start = datetime.strptime(
                 self.daterange.date_start, "%Y-%m-%d").date()
             date_end = datetime.strptime(
@@ -80,7 +82,7 @@ class WizardGiornale(models.TransientModel):
             self.progressive_debit2 = self.daterange.progressive_debit
             self.progressive_credit = self.daterange.progressive_credit
 
-            if self.last_def_date_print == self.daterange.date_end:
+        if self.last_def_date_print == self.daterange.date_end:
                 self.date_move_line_from_view = self.last_def_date_print
 
     @api.onchange('date_move_line_from')
@@ -125,6 +127,7 @@ class WizardGiornale(models.TransientModel):
         datas_form['progressive_debit'] = wizard.progressive_debit2
         datas_form['progressive_credit'] = wizard.progressive_credit
         datas_form['start_row'] = wizard.start_row
+        datas_form['print_row'] = wizard.print_row
         datas_form['daterange'] = wizard.daterange.id
         datas_form['year_footer'] = wizard.year_footer
         return datas_form
