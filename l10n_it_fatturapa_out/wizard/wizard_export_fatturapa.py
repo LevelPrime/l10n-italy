@@ -540,8 +540,9 @@ class WizardExportFatturapa(models.TransientModel):
             raise UserError(
                 _('Invoice does not have a number.'))
 
+        sign = self.getSign(invoice)
         TipoDocumento = invoice.fiscal_document_type_id.code
-        ImportoTotaleDocumento = invoice.amount_total
+        ImportoTotaleDocumento = sign * invoice.amount_total
         if invoice.split_payment:
             ImportoTotaleDocumento += invoice.amount_sp
         body.DatiGenerali.DatiGeneraliDocumento = DatiGeneraliDocumentoType(
@@ -660,10 +661,11 @@ class WizardExportFatturapa(models.TransientModel):
         if len(line.invoice_line_tax_ids) > 1:
             raise UserError(
                 _("Too many taxes for invoice line %s.") % line.name)
+        sign = self.getSign(line.invoice_id)
         aliquota = line.invoice_line_tax_ids[0].amount
         AliquotaIVA = '%.2f' % (aliquota)
         line.ftpa_line_number = line_no
-        prezzo_unitario = self._get_prezzo_unitario(line)
+        prezzo_unitario = sign * self._get_prezzo_unitario(line)
         DettaglioLinea = DettaglioLineeType(
             NumeroLinea=str(line_no),
             # can't insert newline with pyxb
@@ -680,7 +682,7 @@ class WizardExportFatturapa(models.TransientModel):
             ) + 'f') % line.quantity,
             UnitaMisura=line.uom_id and (
                 unidecode(line.uom_id.name)) or None,
-            PrezzoTotale='%.2f' % line.price_subtotal,
+            PrezzoTotale='%.2f' % (sign * line.price_subtotal),
             AliquotaIVA=AliquotaIVA)
         DettaglioLinea.ScontoMaggiorazione.extend(
             self.setScontoMaggiorazione(line))
@@ -728,12 +730,13 @@ class WizardExportFatturapa(models.TransientModel):
             raise UserError(
                 _("Invoice {invoice} has no tax lines")
                 .format(invoice=invoice.display_name))
+        sign = self.getSign(invoice)
         for tax_line in invoice.tax_line_ids:
             tax = tax_line.tax_id
             riepilogo = DatiRiepilogoType(
                 AliquotaIVA='%.2f' % tax.amount,
-                ImponibileImporto='%.2f' % tax_line.base,
-                Imposta='%.2f' % tax_line.amount
+                ImponibileImporto='%.2f' % (sign * tax_line.base),
+                Imposta='%.2f' % (sign * tax_line.amount)
                 )
             if tax.amount == 0.0:
                 if not tax.kind_id:
@@ -823,6 +826,16 @@ class WizardExportFatturapa(models.TransientModel):
         self.setRappresentanteFiscale(company, fatturapa)
         self.setCessionarioCommittente(partner, fatturapa)
         self.setTerzoIntermediarioOSoggettoEmittente(company, fatturapa)
+
+    @api.model
+    def getSign(self, invoice):
+        sign = 1
+        if invoice.type in [
+            "out_refund",
+            "in_refund",
+        ] and invoice.fiscal_document_type_id.code not in ["TD04", "TD08"]:
+            sign = -1
+        return sign
 
     def setFatturaElettronicaBody(self, inv, FatturaElettronicaBody):
 

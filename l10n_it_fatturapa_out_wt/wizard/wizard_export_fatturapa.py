@@ -41,6 +41,7 @@ class WizardExportFatturapa(models.TransientModel):
     def setDatiGeneraliDocumento(self, invoice, body):
         res = super(WizardExportFatturapa, self).setDatiGeneraliDocumento(
             invoice, body)
+        sign = self.getSign(invoice)
         # Get consistent ordering for file generation for compare with test XML
         ritenuta_lines = invoice.withholding_tax_line_ids.sorted(
             key=lambda l: l.withholding_tax_id.code)
@@ -56,7 +57,7 @@ class WizardExportFatturapa(models.TransientModel):
             body.DatiGenerali.DatiGeneraliDocumento.DatiRitenuta.append(
                 DatiRitenutaType(
                     TipoRitenuta=tipoRitenuta,
-                    ImportoRitenuta='%.2f' % float_round(wt_line.tax, 2),
+                    ImportoRitenuta='%.2f' % (sign * float_round(wt_line.tax, 2)),
                     AliquotaRitenuta='%.2f' % float_round(
                         wt_line.withholding_tax_id.tax, 2),
                     CausalePagamento=wt_line.withholding_tax_id.
@@ -73,8 +74,8 @@ class WizardExportFatturapa(models.TransientModel):
                             ],
                             AlCassa='%.2f' % float_round(
                                 wt_line.withholding_tax_id.tax, 2),
-                            ImportoContributoCassa='%.2f' % float_round(
-                                wt_line.tax, 2),
+                            ImportoContributoCassa='%.2f' % (sign * float_round(
+                                wt_line.tax, 2)),
                             AliquotaIVA='0.00',
                             Natura=tax_kind,
                             )
@@ -94,18 +95,19 @@ class WizardExportFatturapa(models.TransientModel):
             lambda x: x.withholding_tax_id.wt_types not in ('ritenuta', 'other')
             and x.withholding_tax_id.use_daticassaprev
         )
+        sign = self.getSign(invoice)
         for wt_line in wt_lines_to_write:
             tax_id = wt_line.withholding_tax_id.daticassprev_tax_id
             tax_riepilogo = self.get_tax_riepilogo(body, tax_id)
             if tax_riepilogo:
                 base_amount = float(tax_riepilogo.ImponibileImporto)
                 base_amount += wt_line.tax
-                tax_riepilogo.ImponibileImporto = '%.2f' % float_round(
-                    base_amount, 2)
+                tax_riepilogo.ImponibileImporto = '%.2f' % (sign * float_round(
+                    base_amount, 2))
             else:
                 riepilogo = DatiRiepilogoType(
                     AliquotaIVA='0.00',
-                    ImponibileImporto='%.2f' % float_round(wt_line.tax, 2),
+                    ImponibileImporto='%.2f' % (sign * float_round(wt_line.tax, 2)),
                     Imposta='0.00',
                     Natura=tax_id.kind_id.code,
                     RiferimentoNormativo=tax_id.law_reference,
