@@ -3,12 +3,12 @@
 from odoo import models, api
 
 
-class Attachment(models.Model):
+class FatturaPAAttachment(models.Model):
     _inherit = "fatturapa.attachment.in"
 
     @api.model
     def create(self, vals):
-        attachments = super(Attachment, self).create(vals)
+        attachments = super(FatturaPAAttachment, self).create(vals)
         rc_invoices = self.env["account.invoice"].search(
             [
                 ("type", "in", ("in_invoice", "in_refund")),

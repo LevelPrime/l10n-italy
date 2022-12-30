@@ -196,7 +196,7 @@ class WizardImportFatturapa(models.TransientModel):
         partner_id = self.getPartnerBase(cedPrest.DatiAnagrafici)
         no_contact_update = False
         if partner_id:
-            no_contact_update = partner_model.browse(partner_id).\
+            no_contact_update = partner_model.browse(partner_id). \
                 electronic_invoice_no_contact_update
         fiscalPosModel = self.env['fatturapa.fiscal_position']
         if partner_id and not no_contact_update:
@@ -293,7 +293,8 @@ class WizardImportFatturapa(models.TransientModel):
                 vals['phone'] = cedPrest.Contatti.Telefono
                 vals['email'] = cedPrest.Contatti.Email
                 vals['fax'] = cedPrest.Contatti.Fax
-            partner_model.browse(partner_id).write(vals)
+
+            partner_model.browse(partner_id).write(vals),
         return partner_id
 
     def getCarrirerPartner(self, Carrier):
