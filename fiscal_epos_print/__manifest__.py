@@ -26,7 +26,8 @@
         'views/assets.xml',
     ],
     'qweb': [
-        'static/src/xml/pos.xml'
+        'static/src/xml/pos.xml',
+        'static/src/xml/lottery.xml'
     ],
     'installable': True,
     'auto_install': False,

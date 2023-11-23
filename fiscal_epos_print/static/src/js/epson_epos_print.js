@@ -406,6 +406,13 @@ odoo.define("fiscal_epos_print.epson_epos_print", function (require) {
                     });
                 }
             });
+            if (receipt.lottery_code) {
+                // TX
+                // 1 135   OP   ID CODE   NU
+                // Example: 113501ABCDEFGN        0000
+                // Pad with spaces to make the code field always 16 characters.
+                xml += '<directIO command="1135" data="01' + receipt.lottery_code.padEnd(16, ' ') + '0000" />';
+            }
             if (has_refund) {
                 xml += self.printRecTotalRefund({});
             }
